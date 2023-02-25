@@ -145,8 +145,6 @@ def createCard(request):
         return redirect('/dashboard')
     
 def show_card(request,id):
-    if not checkLoggedIn(request):
-        return redirect('/login')
     card = Card.objects.get(id=id)
     domain = get_current_site(request)
     brandLogo = f"http://{domain}/image/{card.brandLogo}"
