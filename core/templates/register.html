@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body{
+        background-color:var(--secondary-color--);
+    }
+    .btn{
+        background-color: var(--primary-color--);
+        width: 100%;
+    }
+    .whole{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .container{
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        flex-grow: 1;
+        /* display: flex; */
+    }
+    .form-style {
+        background-color: var(--background-color--);
+        color: white;
+        padding: 30px;
+        margin: auto;
+        height: inherit;
+        margin: 100px auto;
+    }
+    .footer{
+        margin-top: 0;
+    }
+    {% comment %} .form-style {
+        background-color: rgb(188, 221, 223);
+        padding: 30px;
+        margin: 30px auto;
+        border-radius: 15px;
+    } {% endcomment %}
+</style>
+<form action="/register_post" method="POST" class="form-style col-lg-4 col-md-8 offset-md-2 offset-lg-4 validated-form" novalidate>
+    {%csrf_token%}
+    <h2 class="text-center mb-4">Register</h1>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input required type="email" class="form-control" name="email" id="email">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input required type="password" class="form-control" name="password" id="password">
+    </div>
+    <div class="mb-3">
+        <label for="c_password" class="form-label">Confirm Password</label>
+        <input required type="password" class="form-control" name="c_password" id="c_password">
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-success">Register</button>
+    </div>
+</form>
+{% endblock content %}

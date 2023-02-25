@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .cards{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .card-icon{
+    font-size: 17px;
+    cursor: pointer;
+  }
+  .card-icon:hover{
+    transition: 0.2s all ease-in-out;
+    transform: scale(1.4);
+  }
+  #qrcode{
+    width: fit-content;
+    margin: auto;
+  }
+  .card{
+    position: relative;
+  }
+  .more-icon{
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    padding: 10px;
+    font-size: 18px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: white;
+    transform: rotate(180deg);
+    display: none;
+    cursor: pointer;
+  }
+  .more-menu{
+    z-index: 2;
+    right: -170px;
+    top: -185px;
+    width: 200px;
+    position: absolute;
+  }
+  @media (max-width:1000px) {
+    .container{
+      margin-left: 3rem;
+      max-width: 96% !important;
+      width: 960%;
+    }
+    .card{
+      width: 15rem;
+    }
+  }
+  @media (max-width:700px) {
+    .container{
+      width: 96%;
+      margin: auto;
+    }
+    .add-page-btn{
+      width: 90%;
+      margin: auto;
+      display: block;
+    }
+    .cards{
+      width: 100%;
+      justify-content: center;
+    }
+    .card{
+      width: 300px !important;
+      margin: auto;
+    }
+    .card img{
+      height: 180px;
+    }
+    .more-menu{
+      width: 150px !important;
+      right: 35px;
+      top: 25px;  
+    }
+  }
+</style>
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+</script>
+<h2 class="text-center">Your Cards</h2>
+<a href="/" class="btn btn-info mb-4 add-page-btn">Add Page</a>
+<div class="cards">
+    {% for card in cards %}
+    <div class="card m-4" style="width: 16rem;" onmouseover="showMenuIcon('{{forloop.counter}}')" onmouseout="removeMenuIcon('{{forloop.counter}}')">
+      <span class="more-icon" id="more-icon-{{forloop.counter}}" onclick="toggleMenu('{{forloop.counter}}')"><i class="fa-solid fa-caret-down"></i></span>
+      <div class="card more-menu" id="more-menu-{{forloop.counter}}" style="display: none;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a href="/card/share/{{card.id}}"><span class="me-2"><i class="fa-solid fa-share-nodes"></i></span> Contact</li></a>
+          <li class="list-group-item"><a href="/card/{{card.id}}/edit/"><span href="/card/{{card.id}}/edit" class="me-2"><i class="fa-solid fa-pen"></i></span> Edit</li></a>
+          <li class="list-group-item"><a target="_blank" href="/card/{{card.id}}"><span target="_blank" href="/card/{{card.id}}" class="me-2"><i class="fa-solid fa-arrow-up-right-from-square"></i></span> View</li></a>
+          <li class="list-group-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#qrcode-modal" onclick="generateQr('{{card.id}}','{{card.name}}')"><span class="me-2"><i class="fa-solid fa-qrcode"></i></span> Qrcode</li>
+          <li class="list-group-item" style="cursor: pointer;" onclick="copyCardLink('{{card.id}}')"><span class="me-2"><i class="fa-solid fa-copy"></i></span> Copy Link</li>
+        </ul>
+      </div>
+        <img height="170px" src="{{domain}}/image/{% firstof  card.headshotImage "no-headshot-image.png" %}" class="card-img-top" alt="...">
+        <div class="card-body pb-1">
+          <h5 class="card-title">{{card.name}}</h5>          
+        </div>
+        <ul class="list-group list-group-flush">
+          <h6 class="list-group-item mb-2">Views: {{card.views}}</h6>
+          <h6 class="list-group-item mb-2 text-muted">Created On: {{card.date_created}}</h6>
+          {% comment %} <li class="list-group-item">An item</li>
+          <li class="list-group-item">A second item</li> {% endcomment %}
+        </ul>
+        <!-- <div class="card-footer d-flex justify-content-between px-3">
+          <a href="/card/share/{{card.id}}" class="card-link text-black card-icon"><i class="fa-solid fa-share-nodes"></i></a>
+          <a href="/card/{{card.id}}/edit" class="card-link text-black card-icon"><i class="fa-solid fa-pen"></i></a>
+          <a target="_blank" href="/card/{{card.id}}" class="card-link text-black card-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          <span onclick="generateQr('{{card.id}}','{{card.name}}')" class="card-link card-icon" data-bs-toggle="modal" data-bs-target="#qrcode-modal"><i class="fa-solid fa-qrcode"></i></span>
+          <span onclick="copyCardLink('{{card.id}}')" class="card-link card-icon"><i class="fa-solid fa-copy"></i></span>
+        </div> -->
+      </div>
+    {% endfor %}
+</div>
+<div class="modal fade" id="qrcode-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">QRCode for card</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="w-100">
+          <div id="qrcode"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary" id="qr-download" download>Download</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    const generateQr = (id,name) => {
+      const qrDiv = document.getElementById('qrcode')
+      qrDiv.innerHTML = ""
+      var qrcode = new QRCode("qrcode",
+      `{{domain}}/card/${id}`);
+
+      // adding download link
+      setTimeout(() => {
+        const qrImage = document.querySelector('#qrcode img')
+        const url = qrImage.getAttribute('src')
+        console.log(qrImage,url);
+        const qrDownload = document.getElementById('qr-download')
+        qrDownload.setAttribute('href',url)
+      }, 500);      
+    }
+
+    const copyCardLink = (id) => {
+      navigator.clipboard.writeText(`{{domain}}/card/${id}`)
+    }
+
+    // MORE MENU
+    const showMenuIcon = (id) => {
+      document.getElementById("more-icon-"+id).style.display="unset"
+    }
+
+    const removeMenuIcon = (id) => {
+      document.getElementById("more-icon-"+id).style.display="none"
+    }
+
+    const toggleMenu = id => {
+      const menu = document.getElementById(`more-menu-${id}`)
+      if(menu.style.display=="none"){
+        const menus = document.querySelectorAll(".more-menu")
+        menus.forEach(menu => {
+          menu.style.display="none"
+        })
+        menu.style.display='unset'
+      }
+      else{
+        menu.style.display='none'
+      }
+    }
+</script>
+
+{% endblock content %}

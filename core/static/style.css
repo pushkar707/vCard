@@ -1,0 +1,309 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.transition {
+  transform: translateY(0) scale(1);
+  transition: all 0.4s ease-in-out;
+}
+
+.icon {
+  background-color: rgb(55, 65, 81);
+  border-radius: 20px;
+  color: white;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 18px;
+  margin: 10px 15px;
+}
+.icon:hover {
+  transform: scale(1.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.icon-secondary {
+  margin: 17px 19px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.icon-secondary:hover {
+  transform: scale(1.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.sticky {
+  position: absolute;
+  left: 55%;
+  max-width: 100%;
+}
+
+.my-navbar {
+  padding-top: 25px;
+  padding-left: 138px;
+}
+.my-navbar img {
+  width: 150px;
+}
+
+.header {
+  width: 70vw;
+  margin: auto;
+  margin-top: 7rem;
+}
+.header h2 {
+  margin-bottom: 1.6rem;
+}
+.header h5 {
+  margin-bottom: 1.3rem;
+}
+.header ul {
+  list-style: none;
+  margin-left: -1rem;
+}
+.header .header-des div {
+  display: inline-block;
+  margin: 20px;
+  width: 174px;
+  text-align: center;
+}
+.header .header-des img {
+  width: 60px;
+}
+
+.mycontainer {
+  width: 1050px;
+  max-width: 100%;
+  margin: auto;
+  display: flex;
+  margin-top: 5rem;
+  position: relative;
+  overflow-y: hidden;
+  margin-bottom: 8rem;
+}
+.mycontainer .options {
+  width: 50%;
+  margin-right: 3rem;
+  margin-bottom: 2rem;
+}
+.mycontainer .options .img-btn {
+  background-color: gray;
+  margin-right: 10px;
+}
+.mycontainer .options .primary-actions, .mycontainer .options .secondary-actions {
+  margin-top: 2rem;
+}
+.mycontainer .options .primary-actions #action-inputs, .mycontainer .options .secondary-actions #action-inputs {
+  margin-top: 1.5rem;
+}
+.mycontainer .options .primary-actions .icons, .mycontainer .options .secondary-actions .icons {
+  margin-top: 1.5rem;
+}
+.mycontainer .options .featured-content {
+  color: white;
+}
+.mycontainer .options .featured-content h4 {
+  color: black;
+}
+.mycontainer .options .featured-content .add-section {
+  background-color: rgb(55, 65, 81);
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 11px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.mycontainer .options .featured-content .add-section i {
+  margin: auto 2px;
+  font-size: 17px;
+}
+.mycontainer .options .featured-content .featured-content-section {
+  padding: 4px;
+  background-color: rgb(106, 115, 129);
+  width: 90%;
+}
+.mycontainer .options .featured-content .featured-content-section .media-input {
+  width: 91%;
+  background-color: rgb(55, 65, 81);
+  display: inline-block;
+  margin: 5px;
+}
+.mycontainer .options .featured-content .featured-content-section .media-input .img-btn {
+  font-size: 19px;
+  color: white;
+  background: none;
+  cursor: pointer;
+}
+.mycontainer .options .featured-content .featured-content-section i {
+  cursor: pointer;
+}
+.mycontainer .options .featured-content .featured-content-section input {
+  background-color: rgb(55, 65, 81);
+  width: 91%;
+  display: inline-block;
+  margin: 5px;
+  border: none;
+  border-radius: 0;
+  caret-color: white;
+  color: white;
+}
+.mycontainer .options .featured-content .featured-content-section input:focus {
+  border-color: none;
+  box-shadow: none;
+}
+.mycontainer .options .featured-content .featured-content-section .featured-content-input input {
+  background-color: black;
+}
+.mycontainer .options .featured-content .featured-content-section .featured-content-options {
+  display: flex;
+  flex-wrap: wrap;
+  padding: auto;
+}
+.mycontainer .options .featured-content .featured-content-section .featured-content-options .featured-content-option {
+  width: 47.6%;
+  background-color: rgb(55, 65, 81);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  padding: 20px 8px;
+  margin: 5px;
+  cursor: pointer;
+}
+.mycontainer .options .featured-content .featured-content-section .featured-content-options .featured-content-option i {
+  margin-bottom: 7px;
+}
+.mycontainer .options .color-customization .color-form {
+  display: flex;
+  align-items: center;
+}
+.mycontainer .options .color-customization .color-form input {
+  border: none;
+  width: 50px;
+  height: 40px;
+  margin-right: 0.8rem;
+}
+.mycontainer .preview {
+  width: 30vw;
+  border: 5px solid black;
+  border-radius: 10px;
+  height: 90vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  word-wrap: break-word;
+}
+.mycontainer .preview::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.mycontainer .preview .btn {
+  border: none !important;
+}
+.mycontainer .preview .top {
+  height: 220px;
+  background-color: grey;
+  position: relative;
+}
+.mycontainer .preview .top .share-icon {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+.mycontainer .preview .top #brand-logo-preview {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mycontainer .preview .top #brand-logo-preview img {
+  width: 200px;
+  height: 100px;
+}
+.mycontainer .preview .top #headshot-preview {
+  position: absolute;
+  bottom: -70px;
+  left: 42%;
+}
+.mycontainer .preview .top #headshot-preview img {
+  width: 111px;
+  height: 111px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 47% 25%;
+     object-position: 47% 25%;
+  border-radius: 60%;
+}
+.mycontainer .preview .middle {
+  text-align: center;
+  margin-top: 6rem;
+  padding: 5px;
+}
+.mycontainer .preview .middle #pronouns {
+  font-size: 13px;
+}
+.mycontainer .preview .middle #baddress {
+  font-size: 12px;
+}
+.mycontainer .preview .middle .featured-section-preview {
+  padding: 0.5rem;
+}
+.mycontainer .preview .middle .featured-section-preview img {
+  width: 90%;
+  height: 260px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.mycontainer .preview .middle .featured-section-preview .btn {
+  margin-bottom: 10px;
+}
+.mycontainer .preview .middle .featured-section-preview .featured-product-preview {
+  width: 50%;
+  display: inline-block;
+}
+.mycontainer .preview .middle .featured-section-preview .featured-product-preview img {
+  height: 130px;
+}
+.mycontainer .preview .middle .featured-media {
+  margin: auto;
+}
+.mycontainer .preview .footer {
+  background-color: grey;
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (max-width: 1350px) {
+  .mycontainer .preview {
+    width: 35vw;
+  }
+}
+@media (max-width: 1000px) {
+  .header {
+    margin-top: 6rem;
+    width: 96%;
+    margin-bottom: 2rem;
+  }
+  .mycontainer {
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 96%;
+    margin: auto;
+  }
+  .mycontainer .options {
+    width: 100%;
+  }
+  .mycontainer .sticky {
+    position: relative;
+    top: 0;
+  }
+  .mycontainer .preview {
+    margin: auto;
+    width: 90%;
+    left: 0;
+  }
+}/*# sourceMappingURL=style.css.map */

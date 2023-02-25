@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/style.css">
+<style>
+    /* .mycontainer{
+        width: 100%;
+    }
+    .mycontainer .preview{
+        width: 500px;
+        margin: auto;
+    } */
+    .icon{
+        display: unset;
+    }
+    /* EDITING CSS */
+    .edit-icon{
+        margin-left: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.2s all ease-in-out;
+        color: rgb(54, 54, 223);
+    }
+    .edit-icon:hover{
+        transform: scale(1.3);
+    }
+    .edit-box{
+        display: flex;
+        align-items: center;
+    }
+    .edit-box .edit-icon{
+        font-size: 25px;
+    }
+    #primary-contacts .edit-icon,#secondary-actions .edit-icon{
+        margin-left: -10px;
+        font-size: 19px;
+        margin-right: 8px;
+    }
+    .featured-section-preview{
+        position: relative;
+    }
+    .remove-fc-button{
+        position: absolute;
+        right: 20px;
+        top: 17px;
+        font-size: 19px;
+
+    }
+    .text{
+        display: inline;
+    }
+</style>
+<div class="mycontainer" id="container">
+    <div class="options">
+        <h4 class="mb-3">Image Attachment</h4>
+        <div id="brand-logo-container" class="mb-4">
+            <div id="brand-logo-input-container">
+                <label for="brand-logo-input" class="form-label d-flex align-items-center">
+                    <span class="btn img-btn"><i class="fa-solid fa-plus"></i></span>
+                    Change Brand Logo Image
+                </label>
+                <!-- <input class="form-control d-none" type="file" id="brand-logo-input" placeholder="none" > -->
+            </div>
+        </div>
+        <div id="headshot-container" class="mb-4">
+            <div id="headshot-input-container">
+                <label for="headshot-input" class="form-label d-flex align-items-center">
+                    <span class="btn img-btn"><i class="fa-solid fa-plus"></i></span>
+                    Change Headsot Image
+                </label>
+                {% comment %} <input class="form-control d-none" type="file" id="headshot-input" accept="image/*"> {% endcomment %}
+            </div>
+        </div>
+        <div class="primary-actions">
+            <h4>Primary Actions</h4>
+            <div id="action-inputs-primary"></div>
+            <div class="icons">
+                <button class="icon" id="primary-icon-1" title="Phone" onclick="addAction(this.innerHTML,'phone',1)"><i class="fa-solid fa-phone"></i></button>
+                <button class="icon" id="primary-icon-2" title="Messenger" onclick="addAction(this.innerHTML,'messenger',2)"><i class="fa-brands fa-facebook-messenger"></i></button>
+                <button class="icon" id="primary-icon-3" title="Whatsapp" onclick="addAction(this.innerHTML,'whatsapp',3)"><i class="fa-brands fa-whatsapp"></i></button>
+                <button class="icon" id="primary-icon-4" title="Telegram" onclick="addAction(this.innerHTML,'telegram',4)"><i class="fa-brands fa-telegram"></i></button>
+                <button class="icon" id="primary-icon-5" title="Mail" onclick="addAction(this.innerHTML,'mail',5)"><i class="fa-solid fa-envelope"></i></button>
+                <button class="icon" id="primary-icon-6" title="Skype" onclick="addAction(this.innerHTML,'skype',6)"><i class="fa-brands fa-skype"></i></button>
+                <button class="icon" id="primary-icon-7" title="Website" onclick="addAction(this.innerHTML,'website',7)"><i class="fa-solid fa-globe"></i></button>
+                <button class="icon" id="primary-icon-8" title="Store" onclick="addAction(this.innerHTML,'store',8)"><i class="fa-solid fa-store"></i></button>
+                <button class="icon" id="primary-icon-9" title="Location" onclick="addAction(this.innerHTML,'location',9)"><i class="fa-solid fa-location-dot"></i></button>
+                <button class="icon" id="primary-icon-10" title="Viber" onclick="addAction(this.innerHTML,'viber',10)"><i class="fa-brands fa-viber"></i></button>
+                <button class="icon" id="primary-icon-11" title="SMS" onclick="addAction(this.innerHTML,'sms',11)"><i class="fa-solid fa-message"></i></button>
+                <button class="icon" id="primary-icon-12" title="Calender" onclick="addAction(this.innerHTML,'calender',12)"><i class="fa-solid fa-calendar"></i></button>
+                <button class="icon" id="primary-icon-13" title="Line" onclick="addAction(this.innerHTML,'line',13)"><i class="fa-brands fa-line"></i></button>
+            </div>
+        </div>
+        <div class="secondary-actions">
+            <h4>Secondary Actions</h4>
+            <div id="action-inputs-secondary"></div>
+            <div class="icons">
+                <img class="icon-secondary" id="secondary-icon-1" title="app-store" onclick="addSecondaryAction(this.getAttribute('title'),1)" src="/static/img/app-store.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-2" title="behance" onclick="addSecondaryAction(this.getAttribute('title'),2)"  src="/static/img/behance.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-3" title="buy-me-a-coffee" onclick="addSecondaryAction(this.getAttribute('title'),3)"  src="/static/img/buy-me-a-coffee.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-4" title="discord" onclick="addSecondaryAction(this.getAttribute('title'),4)"  src="/static/img/discord.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-5" title="dribble" onclick="addSecondaryAction(this.getAttribute('title'),5)"  src="/static/img/dribble.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-6" title="facebook" onclick="addSecondaryAction(this.getAttribute('title'),6)"  src="/static/img/facebook.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-7" title="github" onclick="addSecondaryAction(this.getAttribute('title'),7)"  src="/static/img/github.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-8" title="Instagram" onclick="addSecondaryAction(this.getAttribute('title'),8)"  src="/static/img/Instagram.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-9" title="linkedin" onclick="addSecondaryAction(this.getAttribute('title'),9)"  src="/static/img/linkedin.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-10" title="medium" onclick="addSecondaryAction(this.getAttribute('title'),10)"  src="/static/img/medium.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-11" title="patreon" onclick="addSecondaryAction(this.getAttribute('title'),11)"  src="/static/img/patreon.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-12" title="paypal" onclick="addSecondaryAction(this.getAttribute('title'),12)"  src="/static/img/paypal.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-13" title="pinterest" onclick="addSecondaryAction(this.getAttribute('title'),13)"  src="/static/img/pinterest.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-14" title="play-store" onclick="addSecondaryAction(this.getAttribute('title'),14)"  src="/static/img/play-store.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-15" title="reddit" onclick="addSecondaryAction(this.getAttribute('title'),15)"  src="/static/img/reddit.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-16" title="snapchat" onclick="addSecondaryAction(this.getAttribute('title'),16)"  src="/static/img/snapchat.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-17" title="spotify" onclick="addSecondaryAction(this.getAttribute('title'),17)"  src="/static/img/spotify.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-18" title="tiktok" onclick="addSecondaryAction(this.getAttribute('title'),18)"  src="/static/img/tiktok.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-19" title="tumblr" onclick="addSecondaryAction(this.getAttribute('title'),19)"  src="/static/img/tumblr.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-20" title="twitch" onclick="addSecondaryAction(this.getAttribute('title'),20)"  src="/static/img/twitch.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-21" title="twitter" onclick="addSecondaryAction(this.getAttribute('title'),21)"  src="/static/img/twitter.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-22" title="vimeo" onclick="addSecondaryAction(this.getAttribute('title'),22)"  src="/static/img/vimeo.png" alt="">
+                <img class="icon-secondary" id="secondary-icon-23" title="youtube" onclick="addSecondaryAction(this.getAttribute('title'),23)"  src="/static/img/youtube.png" alt="">
+            </div>
+        </div>
+
+        <div class="featured-content mt-4">
+            <h4 class="mb-3">Featured Content</h4>
+            <div id="section">
+                
+            </div>
+            <div class="add-section" onclick="addSection()">
+                <i class="fa-solid fa-plus"></i>
+                Add Section
+            </div>
+        </div>
+        <div class="color-customization my-5">
+            <h4 class="mb-3">Color Customisation</h4>
+            <div class="mb-3 color-form">
+                <input type="color" name="" id="header-bg" oninput="changeHeaderBg(this.value)">
+                <label for="header-bg">Header Background</label>
+            </div>
+            <div class="mb-3 color-form">
+                <input type="color" name="" id="body-bg" oninput="changeBodyBg(this.value)">
+                <label for="body-bg">Body Background</label>
+            </div>
+            <div class="mb-3 color-form">
+                <input type="color" name="" id="btn-bg" oninput="changeBtnBg(this.value)">
+                <label for="btn-bg">Button Background</label>
+            </div>
+            <div class="mb-3 color-form">
+                <input type="color" name="" id="fc-bg" oninput="changeFcBg(this.value)">
+                <label for="fc-bg">Featured Content Background</label>
+            </div>
+        </div>
+    </div>
+    <div class="preview sticky" id="preview">
+        {{html|safe}}
+    </div>
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Card Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/card/{{id}}/edit/" method="POST" enctype="multipart/form-data" onsubmit="removeIcons(event)">
+            {%csrf_token%}
+            <div class="modal-body" id="add-card-form-body">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Change Card Name: </label>
+                    <input type="text" class="form-control" name="name" id="name" value='{{name}}'>
+                </div>
+                <input type="hidden" id="card-html-input" name="html">
+                <input type="file" style="display: none;" id="brand-logo-input" name="logo" accept="image/*">            
+                <input type="file" style="display: none;" id="headshot-input" name="headshot" accept="image/*">
+                <!-- VCF FILE INPUTS -->
+                <input type="hidden" id="prefix-vcf-input" name="prefix" >
+                <input type="hidden" id="first-name-vcf-input" name="first-name" >
+                <input type="hidden" id="last-name-vcf-input" name="last-name" >
+                <input type="hidden" id="job-title-vcf-input" name="job-title" >
+                <input type="hidden" id="business-name-vcf-input" name="business-name" >
+                <input type="hidden" id="business-description-vcf-input" name="business-description" >
+                <input type="hidden" id="business-address-vcf-input" name="business-address" >
+                <input type="hidden" id="mobile-work-vcf-input" name="mobile-work" >
+                <input type="hidden" id="email-vcf-input" name="email" >
+                <input type="hidden" id="mobile-home-vcf-input" name="mobile-home" >
+                <input type="hidden" id="website-vcf-input" name="website" >
+                <input type="hidden" id="linkedin-vcf-input" name="linkedin" >
+                <input type="hidden" id="facebook-vcf-input" name="facebook" >
+                <input type="hidden" id="github-vcf-input" name="github" >
+                <input type="hidden" id="instagram-vcf-input" name="instagram" >
+                <input type="hidden" id="twitter-vcf-input" name="twitter" >
+                
+                <!-- FEATURED CONTENT INPUT -->
+                <input type="hidden" id="featured-media-count" name="media-count" value={{media_urls|length}}>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add Card</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/e474137630.js" crossorigin="anonymous"></script>
+<script>
+    const changeBrandLogo = () => {
+        img = document.getElementById("brand-logo-preview-image")
+        img ? img.src = `{{brandLogo}}` : ""
+    }
+    const changeHeadshot = () => {
+        img = document.getElementById("headshot-preview-image")
+        img ? img.src = `{{headshot}}` : ""
+    }
+    changeBrandLogo()
+    changeHeadshot()
+</script>
+{{ media_urls | json_script:"media-urls" }}
+<script src="/static/edit.js"></script>
+{% endblock content %}

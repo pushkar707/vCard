@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body{
+        background-color:var(--secondary-color--);
+    }
+    .btn{
+        background-color: var(--primary-color--);
+        width: 100%;
+    }
+    .whole{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .container{
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        flex-grow: 1;
+    }
+    .form-style {
+        background-color: var(--background-color--);
+        color: white;
+        padding: 30px;
+        margin: auto;
+        height: inherit;
+        margin: 100px auto;
+    }
+    .footer{
+        margin-top: 0;
+    }
+</style>
+<form action="/login_post" method="POST" class="form-style col-lg-4 col-md-8 offset-md-2 offset-lg-4 validated-form" novalidate>
+    <h2 class="text-center mb-4">Login</h1>
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input required type="email" class="form-control" name="email" id="email">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input required type="password" class="form-control" name="password" id="password">
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-success">Login</button>
+    </div>
+</form>
+{% endblock content %}

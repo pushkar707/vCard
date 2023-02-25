@@ -1,0 +1,8 @@
+.env
+tasks.txt
+zappa_settings.json
+contact.vcf
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

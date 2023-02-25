@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/style.css">
+<style>
+    .container{
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .mycontainer{
+        width: 100%;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .mycontainer .preview{
+        width: 600px;
+        margin: auto;
+        border-top:none;
+        border-bottom:none;
+        border-radius: 0;
+        height: 100%;
+        min-height: 80vh;
+        position: relative;
+        padding-bottom: 40px;
+    }
+    .icon{
+        display: unset;
+    }
+    .footer{
+        margin-top: 0;
+    }
+    .preview-footer{
+        position: absolute;
+        width: 100%;
+        background-color: var(--background-color--);
+        color: white;
+        bottom: 0;
+        padding: 10px;
+        text-align: center;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+</style>
+<div class="mycontainer">
+    <div class="preview">
+        {{html|safe}}
+        <div class="preview-footer">
+            Made With Vcard
+        </div>
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/e474137630.js" crossorigin="anonymous"></script>
+{{ media_urls | json_script:"media-urls" }}
+<script>
+    const changeBrandLogo = () => {
+        img = document.getElementById("brand-logo-preview-image")
+        img ? img.src = `{{brandLogo}}` : ""
+    }
+    const changeHeadshot = () => {
+        img = document.getElementById("headshot-preview-image")
+        img ? img.src = `{{headshot}}` : ""
+    }
+    changeBrandLogo()
+    changeHeadshot()
+
+    // FEATURED MEDIA
+    const changeMedia = () => {
+        mediaImages = document.getElementsByClassName('preview-media')
+        const data = document.currentScript.dataset;
+        let mediaurls = JSON.parse(document.currentScript.previousElementSibling.textContent)
+        
+        let index = 0
+        for (const img of mediaImages) {
+            img.src = mediaurls[index]
+            index++
+        }
+    }
+    changeMedia()
+    const changeBodyBg = () => {
+        const color = document.getElementById("preview-body").style.backgroundColor
+        document.querySelector(".preview").style.backgroundColor = color
+    }
+    changeBodyBg()
+    const changeShareLink = () => {
+        document.querySelector(".share-icon").setAttribute("onclick",'downloadVcf()')
+    }
+    changeShareLink()
+    const downloadVcf = () => {
+        window.location.href = "/card/share/{{card_id}}"
+    }
+</script>
+{% endblock content %}
