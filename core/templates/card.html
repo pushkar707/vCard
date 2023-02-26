@@ -14,10 +14,7 @@
     }
     .mycontainer .preview{
         width: 600px;
-        margin: auto;
-        border-top:none;
-        border-bottom:none;
-        border-radius: 0;
+        margin: 4rem auto;
         height: 100%;
         min-height: 80vh;
         position: relative;
@@ -43,6 +40,11 @@
     @media (max-width:776px) {
         .mycontainer .preview{
             width: 96%;
+        }
+    }
+    @media (max-width:500px) {
+        .mycontainer .preview .top #headshot-preview{
+            left: 35%;
         }
     }
 </style>

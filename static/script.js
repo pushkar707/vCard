@@ -2,9 +2,10 @@
 const preview = document.getElementById('preview')
 if(window.innerWidth>1000){
     window.addEventListener('scroll',()=>{
-        if(window.scrollY>620){
-            preview.style.top = `${window.scrollY-620}px`
+        if(window.scrollY>720 && document.body.offsetHeight-window.scrollY>1000){
+            preview.style.top = `${window.scrollY-720}px`
         }
+        console.log(document.body.offsetHeight-window.scrollY);
     })
 }
 

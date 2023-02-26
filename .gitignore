@@ -6,3 +6,4 @@ contact.vcf
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+tasks

@@ -54,10 +54,13 @@ def register_post(request):
     if(password!= c_password):
         messages.error(request, "Passwords don't match")
         return redirect('/register')
-    else:
-        password = make_password(password)
-        user = User(email=email,password=password)
-        user.save()
+    user,created = User.objects.get_or_create(email=email)
+    if not created:
+        messages.error(request, "Email Already in use")
+        return redirect('/register')
+    password = make_password(password)
+    user.password = password
+    user.save()
     return redirect('/login')
 
 def logout(request):

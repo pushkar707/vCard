@@ -83,14 +83,14 @@
 "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
 </script>
 <h2 class="text-center">Your Cards</h2>
-<a href="/" class="btn btn-info mb-4 add-page-btn">Add Page</a>
+<a href="/" class="btn btn-info mb-4 add-page-btn">Add Card</a>
 <div class="cards">
     {% for card in cards %}
     <div class="card m-4" style="width: 16rem;" onmouseover="showMenuIcon('{{forloop.counter}}')" onmouseout="removeMenuIcon('{{forloop.counter}}')">
-      <span class="more-icon" id="more-icon-{{forloop.counter}}" onclick="toggleMenu('{{forloop.counter}}')"><i class="fa-solid fa-caret-down"></i></span>
-      <div class="card more-menu" id="more-menu-{{forloop.counter}}" style="display: none;">
+      <span class="more-icon" id="more-icon-{{forloop.counter}}" onmouseover="showMenu('{{forloop.counter}}')"><i class="fa-solid fa-caret-down"></i></span>
+      <div class="card more-menu" id="more-menu-{{forloop.counter}}" style="display: none;" onmouseleave="removeMenu('{{forloop.counter}}')">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a href="/card/share/{{card.id}}"><span class="me-2"><i class="fa-solid fa-share-nodes"></i></span> Contact</li></a>
+          <li class="list-group-item"><a href="/card/share/{{card.id}}"><span class="me-2"><i class="fa-solid fa-floppy-disk"></i></span> Save Contact</li></a>
           <li class="list-group-item"><a href="/card/{{card.id}}/edit/"><span href="/card/{{card.id}}/edit" class="me-2"><i class="fa-solid fa-pen"></i></span> Edit</li></a>
           <li class="list-group-item"><a target="_blank" href="/card/{{card.id}}"><span target="_blank" href="/card/{{card.id}}" class="me-2"><i class="fa-solid fa-arrow-up-right-from-square"></i></span> View</li></a>
           <li class="list-group-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#qrcode-modal" onclick="generateQr('{{card.id}}','{{card.name}}')"><span class="me-2"><i class="fa-solid fa-qrcode"></i></span> Qrcode</li>
@@ -161,6 +161,11 @@
 
     // MORE MENU
     const showMenuIcon = (id) => {
+      const menus = document.querySelectorAll(".more-menu")
+      menus.forEach(menu => {
+        if(menu.id != `more-menu-${id}`)
+        menu.style.display = 'none'
+      })
       document.getElementById("more-icon-"+id).style.display="unset"
     }
 
@@ -168,18 +173,13 @@
       document.getElementById("more-icon-"+id).style.display="none"
     }
 
-    const toggleMenu = id => {
+    const showMenu = id => {
       const menu = document.getElementById(`more-menu-${id}`)
-      if(menu.style.display=="none"){
-        const menus = document.querySelectorAll(".more-menu")
-        menus.forEach(menu => {
-          menu.style.display="none"
-        })
-        menu.style.display='unset'
-      }
-      else{
-        menu.style.display='none'
-      }
+      menu.style.display = 'unset'
+    }
+
+    const removeMenu = id => {
+      document.getElementById(`more-menu-${id}`).style.display='none'
     }
 </script>
 
