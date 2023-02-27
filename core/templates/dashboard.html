@@ -86,7 +86,7 @@
 <a href="/" class="btn btn-info mb-4 add-page-btn">Add Card</a>
 <div class="cards">
     {% for card in cards %}
-    <div class="card m-4" style="width: 16rem;" onmouseover="showMenuIcon('{{forloop.counter}}')" onmouseout="removeMenuIcon('{{forloop.counter}}')">
+    <div class="card m-4" id="card-{{card.id}}" style="width: 16rem;" onmouseover="showMenuIcon('{{forloop.counter}}')" onmouseout="removeMenuIcon('{{forloop.counter}}')">
       <span class="more-icon" id="more-icon-{{forloop.counter}}" onmouseover="showMenu('{{forloop.counter}}')"><i class="fa-solid fa-caret-down"></i></span>
       <div class="card more-menu" id="more-menu-{{forloop.counter}}" style="display: none;" onmouseleave="removeMenu('{{forloop.counter}}')">
         <ul class="list-group list-group-flush">
@@ -150,13 +150,19 @@
       }, 500);
     }
 
-    const unsecuredCopyToClipboard = (text) => { const textArea = document.createElement("textarea"); textArea.value=text; document.body.appendChild(textArea); textArea.focus();textArea.select(); try{document.execCommand('copy')}catch(err){console.error('Unable to copy to clipboard',err)}document.body.removeChild(textArea)};
+    const unsecuredCopyToClipboard = (text,id) => { 
+      const textArea = document.createElement("textarea");
+      console.log("card-"+id);
+       textArea.value=text; document.getElementById('card-'+id).insertAdjacentElement('afterbegin',textArea);
+        textArea.focus();textArea.select();
+         try{document.execCommand('copy')}
+         catch(err){console.error('Unable to copy to clipboard',err)}document.getElementById('card-'+id).removeChild(textArea)};
 
     const copyCardLink = (id) => {
       if (window.isSecureContext && navigator.clipboard) {
         navigator.clipboard.writeText(`{{domain}}/card/${id}`);
       } else {
-        unsecuredCopyToClipboard(`{{domain}}/card/${id}`);
+        unsecuredCopyToClipboard(`{{domain}}/card/${id}`,id);
       }
     };
 
