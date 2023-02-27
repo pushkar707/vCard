@@ -5,7 +5,6 @@ if(window.innerWidth>1000){
         if(window.scrollY>720 && document.body.offsetHeight-window.scrollY>1000){
             preview.style.top = `${window.scrollY-720}px`
         }
-        console.log(document.body.offsetHeight-window.scrollY);
     })
 }
 
@@ -275,7 +274,7 @@ const addSecondaryAction = (title,index) => {
     const secondaryPreview = document.getElementById('secondary-actions')
     const secondaryInputs = document.getElementById('action-inputs-secondary')
     document.getElementById('secondary-icon-'+index).style.display = 'none'
-    secondaryPreview.innerHTML+=`<a href="" id="preview-secondary-icon-${index}"><img class="icon-secondary"  title="${title}" src="/static/img/${title}.png" alt=""></a>`
+    secondaryPreview.innerHTML+=`<a href="" target="_blank" id="preview-secondary-icon-${index}"><img class="icon-secondary"  title="${title}" src="/static/img/${title}.png" alt=""></a>`
     
     const input = `
     <div class="d-flex align-items-center" id="secondary-icon-input-${index}">
