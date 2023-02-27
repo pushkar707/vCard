@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from core.views import login,register,register_post,login_post,dashboard,createCard,show_card,logout,generate_vcard,show_image,test,edit_card
+from core.views import login,register,register_post,login_post,dashboard,createCard,show_card,logout,generate_vcard,show_image,test,edit_card,delete_card
 
 urlpatterns = [
     path('login/', login),
@@ -30,6 +30,7 @@ urlpatterns = [
     path("card/share/<id>/",generate_vcard),
     path("card/<id>/",show_card),
     path("card/<id>/edit/",edit_card),
+    path("card/<id>/delete/",delete_card),
     path("logout/",logout),
     path('image/<key>/',show_image),
     path("test", test),

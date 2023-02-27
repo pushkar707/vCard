@@ -24,20 +24,20 @@
   .more-icon{
     position: absolute;
     right: 15px;
-    top: 10px;
+    top: 15px;
     padding: 10px;
     font-size: 18px;
     padding-top: 0px;
     padding-bottom: 0px;
     background-color: white;
-    transform: rotate(180deg);
+    /* transform: rotate(180deg); */
     display: none;
     cursor: pointer;
   }
   .more-menu{
     z-index: 2;
     right: -170px;
-    top: -185px;
+    top: 23px;
     width: 200px;
     position: absolute;
   }
@@ -73,7 +73,7 @@
       height: 180px;
     }
     .more-menu{
-      width: 150px !important;
+      width: 160px !important;
       right: 35px;
       top: 25px;  
     }
@@ -91,29 +91,24 @@
       <div class="card more-menu" id="more-menu-{{forloop.counter}}" style="display: none;" onmouseleave="removeMenu('{{forloop.counter}}')">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><a href="/card/share/{{card.id}}"><span class="me-2"><i class="fa-solid fa-floppy-disk"></i></span> Save Contact</li></a>
-          <li class="list-group-item"><a href="/card/{{card.id}}/edit/"><span href="/card/{{card.id}}/edit" class="me-2"><i class="fa-solid fa-pen"></i></span> Edit</li></a>
+          <li class="list-group-item"><a href="/card/{{card.id}}/edit/"><span class="me-2"><i class="fa-solid fa-pen"></i></span> Edit</li></a>
+          <li class="list-group-item" onclick="confirmDelete('{{card.id}}')">
+            <!-- <a href="/card/{{card.id}}/delete/"> -->
+              <span class="me-2"><i class="fa-solid fa-trash"></i></span> Delete</li>
+            <!-- </a> -->
           <li class="list-group-item"><a target="_blank" href="/card/{{card.id}}"><span target="_blank" href="/card/{{card.id}}" class="me-2"><i class="fa-solid fa-arrow-up-right-from-square"></i></span> View</li></a>
           <li class="list-group-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#qrcode-modal" onclick="generateQr('{{card.id}}','{{card.name}}')"><span class="me-2"><i class="fa-solid fa-qrcode"></i></span> Qrcode</li>
           <li class="list-group-item" style="cursor: pointer;" onclick="copyCardLink('{{card.id}}')"><span class="me-2"><i class="fa-solid fa-copy"></i></span> Copy Link</li>
         </ul>
       </div>
-        <img height="170px" src="{{domain}}/image/{% firstof  card.headshotImage "no-headshot-image.png" %}" class="card-img-top" alt="...">
+        <img height="170px" onmouseenter="removeMenu('{{forloop.counter}}')" src="{{domain}}/image/{% firstof  card.headshotImage "no-headshot-image.png" %}" class="card-img-top" alt="...">
         <div class="card-body pb-1">
           <h5 class="card-title">{{card.name}}</h5>          
         </div>
         <ul class="list-group list-group-flush">
           <h6 class="list-group-item mb-2">Views: {{card.views}}</h6>
           <h6 class="list-group-item mb-2 text-muted">Created On: {{card.date_created}}</h6>
-          {% comment %} <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li> {% endcomment %}
         </ul>
-        <!-- <div class="card-footer d-flex justify-content-between px-3">
-          <a href="/card/share/{{card.id}}" class="card-link text-black card-icon"><i class="fa-solid fa-share-nodes"></i></a>
-          <a href="/card/{{card.id}}/edit" class="card-link text-black card-icon"><i class="fa-solid fa-pen"></i></a>
-          <a target="_blank" href="/card/{{card.id}}" class="card-link text-black card-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          <span onclick="generateQr('{{card.id}}','{{card.name}}')" class="card-link card-icon" data-bs-toggle="modal" data-bs-target="#qrcode-modal"><i class="fa-solid fa-qrcode"></i></span>
-          <span onclick="copyCardLink('{{card.id}}')" class="card-link card-icon"><i class="fa-solid fa-copy"></i></span>
-        </div> -->
       </div>
     {% endfor %}
 </div>
@@ -149,15 +144,21 @@
       setTimeout(() => {
         const qrImage = document.querySelector('#qrcode img')
         const url = qrImage.getAttribute('src')
-        console.log(qrImage,url);
+        console.log(url);
         const qrDownload = document.getElementById('qr-download')
         qrDownload.setAttribute('href',url)
-      }, 500);      
+      }, 500);
     }
 
+    const unsecuredCopyToClipboard = (text) => { const textArea = document.createElement("textarea"); textArea.value=text; document.body.appendChild(textArea); textArea.focus();textArea.select(); try{document.execCommand('copy')}catch(err){console.error('Unable to copy to clipboard',err)}document.body.removeChild(textArea)};
+
     const copyCardLink = (id) => {
-      navigator.clipboard.writeText(`{{domain}}/card/${id}`)
-    }
+      if (window.isSecureContext && navigator.clipboard) {
+        navigator.clipboard.writeText(`{{domain}}/card/${id}`);
+      } else {
+        unsecuredCopyToClipboard(`{{domain}}/card/${id}`);
+      }
+    };
 
     // MORE MENU
     const showMenuIcon = (id) => {
@@ -180,6 +181,13 @@
 
     const removeMenu = id => {
       document.getElementById(`more-menu-${id}`).style.display='none'
+    }
+
+    // delete
+    const confirmDelete = id => {
+      if(window.confirm("Are you sure you want to delete the card?")){
+        window.location.href = `/card/${id}/delete`
+      }
     }
 </script>
 

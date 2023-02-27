@@ -8,7 +8,7 @@ changePreviousBodyBg()
 const preview = document.getElementById('preview')
 if(window.innerWidth>1000){
     window.addEventListener('scroll',()=>{
-        if(window.scrollY>130){
+        if(window.scrollY>130 && document.body.offsetHeight-window.scrollY>1000){
             preview.style.top = `${window.scrollY-130}px`
         }
     })
@@ -321,7 +321,7 @@ const addSecondaryAction = (title,index) => {
     const secondaryPreview = document.getElementById('secondary-actions')
     const secondaryInputs = document.getElementById('action-inputs-secondary')
     document.getElementById('secondary-icon-'+index).style.display = 'none'
-    secondaryPreview.innerHTML+=`<a href="" id="preview-secondary-icon-${index}"><img class="icon-secondary"  title="${title}" src="/static/img/${title}.png" alt=""></a>`
+    secondaryPreview.innerHTML+=`<a href="" target="_blank" id="preview-secondary-icon-${index}"><img class="icon-secondary"  title="${title}" src="/static/img/${title}.png" alt=""></a>`
     
     const input = `
     <div class="d-flex align-items-center" id="secondary-icon-input-${index}">

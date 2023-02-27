@@ -159,6 +159,11 @@ def show_card(request,id):
     
     return render(request,"card.html",{"html":card.html,'brandLogo':brandLogo,"headshot":headshot,"media_urls":media,"card_id":card.id})
 
+def delete_card(request,id):
+    if not checkLoggedIn(request):
+        return redirect('/login')
+    Card.objects.get(id=id).delete()
+    return redirect("/dashboard")
 
 def edit_card(request,id):
     if not checkLoggedIn(request):
@@ -247,6 +252,7 @@ def generate_vcard(request,id):
     if not checkLoggedIn(request):
         return redirect('/login')
     card = Card.objects.get(id=id)
+    name = card.name
     prefix = card.prefix
     first_name = card.fname
     last_name = card.lname
@@ -270,7 +276,7 @@ def generate_vcard(request,id):
     file_path = vcf_file
     with open(file_path, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-        response['Content-Disposition'] = 'inline; filename=' + f"{first_name or 'my_username'}.vcf"
+        response['Content-Disposition'] = 'inline; filename=' + f"{name or 'username'}.vcf"
         return response
 
 def show_image(request,key):
