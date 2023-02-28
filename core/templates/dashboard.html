@@ -92,10 +92,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><a href="/card/share/{{card.id}}"><span class="me-2"><i class="fa-solid fa-floppy-disk"></i></span> Save Contact</li></a>
           <li class="list-group-item"><a href="/card/{{card.id}}/edit/"><span class="me-2"><i class="fa-solid fa-pen"></i></span> Edit</li></a>
-          <li class="list-group-item" onclick="confirmDelete('{{card.id}}')">
-            <!-- <a href="/card/{{card.id}}/delete/"> -->
-              <span class="me-2"><i class="fa-solid fa-trash"></i></span> Delete</li>
-            <!-- </a> -->
+          <li class="list-group-item" style="cursor: pointer;" onclick="confirmDelete('{{card.id}}')"><span class="me-2"><i class="fa-solid fa-trash"></i></span> Delete</li>
           <li class="list-group-item"><a target="_blank" href="/card/{{card.id}}"><span target="_blank" href="/card/{{card.id}}" class="me-2"><i class="fa-solid fa-arrow-up-right-from-square"></i></span> View</li></a>
           <li class="list-group-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#qrcode-modal" onclick="generateQr('{{card.id}}','{{card.name}}')"><span class="me-2"><i class="fa-solid fa-qrcode"></i></span> Qrcode</li>
           <li class="list-group-item" style="cursor: pointer;" onclick="copyCardLink('{{card.id}}')"><span class="me-2"><i class="fa-solid fa-copy"></i></span> Copy Link</li>
@@ -125,7 +122,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary" id="qr-download" download>Download</a>
+        <a type="button" class="btn btn-primary" id="qr-share" href="#" target="_blank">Show QR</a>
+        <!-- <button type="button" class="btn btn-primary" id="qr-share" onclick="copyQrLink()">Copy QR Link</button> -->
+        <!-- <a href="#" class="btn btn-primary" id="qr-download" download>Download</a> -->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -140,14 +139,17 @@
       var qrcode = new QRCode("qrcode",
       `{{domain}}/card/${id}`);
 
-      // adding download link
-      setTimeout(() => {
-        const qrImage = document.querySelector('#qrcode img')
-        const url = qrImage.getAttribute('src')
-        console.log(url);
-        const qrDownload = document.getElementById('qr-download')
-        qrDownload.setAttribute('href',url)
-      }, 500);
+      document.getElementById("qr-share").setAttribute("href",`/card/${id}/qr`)
+      // document.getElementById("qr-share").setAttribute("onClick",`copyQrLink(${id})`)
+
+      // // adding download link
+      // setTimeout(() => {
+      //   const qrImage = document.querySelector('#qrcode img')
+      //   const url = qrImage.getAttribute('src')
+      //   console.log(url);
+      //   const qrDownload = document.getElementById('qr-download')
+      //   qrDownload.setAttribute('href',url)
+      // }, 500);
     }
 
     const unsecuredCopyToClipboard = (text,id) => { 
@@ -165,6 +167,14 @@
         unsecuredCopyToClipboard(`{{domain}}/card/${id}`,id);
       }
     };
+
+    // const copyQrLink = id => {
+    //   if (window.isSecureContext && navigator.clipboard) {
+    //     navigator.clipboard.writeText(`{{domain}}/card/${id}/qr`);
+    //   } else {
+    //     unsecuredCopyToClipboard(`{{domain}}/card/${id}/qr`,id);
+    //   }
+    // }
 
     // MORE MENU
     const showMenuIcon = (id) => {

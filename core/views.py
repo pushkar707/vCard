@@ -283,6 +283,10 @@ def show_image(request,key):
     obj = s3_fetch(key)
     return HttpResponse(obj['Body'],content_type="image/jpeg")
 
+def show_qr(request,id):
+    domain = f"http://{get_current_site(request)}"
+    return render(request,"qr.html",{"id":id,"domain":domain})
+
 def test(request):
     print(request.session.get("user"))
     return HttpResponse("")
