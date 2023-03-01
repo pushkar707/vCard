@@ -228,7 +228,9 @@ html{
             #headshot-preview{
                 position: absolute;
                 bottom: -70px;
-                left: 40.5%;           
+                left: 0;           
+                right: 0; 
+                text-align: center;          
                 img{
                     width: 111px;
                     height: 111px;

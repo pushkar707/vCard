@@ -226,7 +226,9 @@ html {
 .mycontainer .preview .top #headshot-preview {
   position: absolute;
   bottom: -70px;
-  left: 40.5%;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 .mycontainer .preview .top #headshot-preview img {
   width: 111px;
